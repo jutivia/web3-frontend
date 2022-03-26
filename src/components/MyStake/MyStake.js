@@ -9,12 +9,12 @@ const MyStake = ({
   onChangeInput,
   onClickStake,
   onClickWithdraw,
-  onClickGetAddress,
-  userTotal,
   rewardAmount,
   stakeAmount,
   connected,
-  addressInput
+  addressInput,
+  onClickGetAddress,
+  userTotal
 }) => {
   return (
     <div className={Styles.root}>
@@ -80,7 +80,7 @@ const MyStake = ({
           </button>
         </form>
         <br />
-        <h2> {userTotal ? `Stake:  ${userTotal}` : ''}</h2>
+        <h2> {userTotal ? `Stake:  ${userTotal}` : ""}</h2>
       </div>
     </div>
   );

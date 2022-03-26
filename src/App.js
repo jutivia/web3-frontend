@@ -329,9 +329,7 @@ function App() {
       <main className="main">
         <MyStake
           stakeInput={stakeInput}
-          withdrawInput={withdrawInput}
           addressInput={addressInput}
-          userTotal={userTotal}
           onChangeInput={onChangeInput}
           onClickStake={onClickStake}
           onClickWithdraw={onClickWithdraw}
@@ -339,6 +337,8 @@ function App() {
           rewardAmount={rewardAmount}
           connected={connected}
           onClickGetAddress={onClickGetAddress}
+          userTotal={userTotal}
+          withdrawInput={withdrawInput}
         />
         <StakeHistory stakeData={stateHistory} />
       </main>
