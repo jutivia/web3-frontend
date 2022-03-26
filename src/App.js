@@ -36,6 +36,11 @@ function App() {
   // all stake history data displayed on the history table
   const [stateHistory, setStakeHistory] = useState([]);
 
+  const [addressInput, setAddressInput] = useState("");
+
+  // the amount of reward the user has accumulate on his stake
+  const [userTotal, setUserTotal] = useState(null);
+
   // helper function for getting the matic and token balance, given an address
   const getAccountDetails = async (address) => {
     try {
@@ -186,6 +191,10 @@ function App() {
       case "unstake":
         setWithdrawInput(target.value);
         break;
+      
+      case "getAddress":
+        setAddressInput(target.value);
+        break;
 
       default:
         break;
@@ -290,6 +299,26 @@ function App() {
     console.log("unstaking...........", withdrawInput);
   };
 
+  const onClickGetAddress = async (e) => {
+    e.preventDefault();
+    const customProvider = new ethers.providers.JsonRpcProvider(
+      process.env.REACT_APP_RPC_URL
+    );
+    const BRTContractInstance = new Contract(
+      BRTTokenAddress,
+      BRTTokenAbi,
+      customProvider
+    );
+
+    // const addressValue = utils.parseEther(addressInput);
+    const userReward = await BRTContractInstance.getStakeByAddress(
+      addressInput
+    );
+    console.log(userReward);
+    // console.log());
+    setUserTotal(utils.formatUnits(userReward.stakeAmount, 18));
+  };
+
   return (
     <div className="App">
       <Header
@@ -301,12 +330,15 @@ function App() {
         <MyStake
           stakeInput={stakeInput}
           withdrawInput={withdrawInput}
+          addressInput={addressInput}
+          userTotal={userTotal}
           onChangeInput={onChangeInput}
           onClickStake={onClickStake}
           onClickWithdraw={onClickWithdraw}
           stakeAmount={stakeAmount}
           rewardAmount={rewardAmount}
           connected={connected}
+          onClickGetAddress={onClickGetAddress}
         />
         <StakeHistory stakeData={stateHistory} />
       </main>
