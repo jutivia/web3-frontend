@@ -39,4 +39,8 @@
 .unstake_style {
     background-color: rgb(240, 239, 239);
 }
+.scrool{
+    height:10rem;
+    overflow-y: scroll;
+}
 
