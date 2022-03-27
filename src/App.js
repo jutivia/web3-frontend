@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import Footer from "./components/Footer/Footer";
 import { ethers, utils, Contract } from "ethers";
 import BRTTokenAbi from "./utils/web3/abi.json";
-import  { formatDate } from "./utils/helpers";
+import { formatDate, addressShortner } from "./utils/helpers";
 const BRTTokenAddress = "0x169E82570feAc981780F3C48Ee9f05CED1328e1b";
 
 
@@ -40,6 +40,7 @@ function App() {
 
   // the amount of reward the user has accumulate on his stake
   const [userTotal, setUserTotal] = useState(null);
+  const [userAddress, setUserAddress] = useState(null)
 
   // helper function for getting the matic and token balance, given an address
   const getAccountDetails = async (address) => {
@@ -314,8 +315,9 @@ function App() {
     const userReward = await BRTContractInstance.getStakeByAddress(
       addressInput
     );
+    setAddressInput(" ");
     console.log(userReward);
-    // console.log());
+    setUserAddress(addressShortner(userReward.staker, true))
     setUserTotal(utils.formatUnits(userReward.stakeAmount, 18));
   };
 
@@ -339,6 +341,7 @@ function App() {
           onClickGetAddress={onClickGetAddress}
           userTotal={userTotal}
           withdrawInput={withdrawInput}
+          userAddress={userAddress}
         />
         <StakeHistory stakeData={stateHistory} />
       </main>

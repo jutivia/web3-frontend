@@ -14,6 +14,7 @@ const MyStake = ({
   connected,
   addressInput,
   onClickGetAddress,
+  userAddress,
   userTotal
 }) => {
   return (
@@ -80,7 +81,8 @@ const MyStake = ({
           </button>
         </form>
         <br />
-        <h2> {userTotal ? `Stake:  ${userTotal}` : ""}</h2>
+        <h4> {userTotal ? `User Address :  ${userAddress}` : ""}</h4>
+        <h2> {userTotal ? `Stake Balance :  ${userTotal}` : ""}</h2>
       </div>
     </div>
   );
